@@ -12,6 +12,12 @@ def average_gdp(data):
         list с заголовками результатов и list с данными результатов отдельно"""
     headers = data[0]
     grouped_data = defaultdict(list)
+
+    if 'country' not in headers:
+        raise ValueError("Колонка 'country' не найдена в данных")
+    if 'gdp' not in headers:
+        raise ValueError("Колонка 'gdp' не найдена в данных")
+
     group_by_idx = headers.index('country')
     numeric_idx = headers.index('gdp')
 
@@ -24,7 +30,7 @@ def average_gdp(data):
                 grouped_data[group_key].append(numeric_value)
 
     result = []
-    result_headers = ['country', 'Avg_gdp']
+    result_headers = ['country', 'avg_gdp']
 
     for group_key, values in sorted(grouped_data.items()):
         if values:
@@ -32,4 +38,7 @@ def average_gdp(data):
             if isinstance(average, float):
                 average = round(average, 2)
             result.append([group_key, average])
+
+    result.sort(key=lambda x: x[1], reverse=True)
+
     return result_headers, result

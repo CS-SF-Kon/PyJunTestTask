@@ -6,7 +6,13 @@ from reports import reports, average_gdp
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Объединение CSV файлов с одинаковой структурой'
+        description='Объединение CSV файлов с одинаковой структурой',
+        epilog="""Примеры использования:
+        python script.py --files data1.csv data2.csv --report average-gdp
+        python script.py --files *.csv --report average-gdp
+                
+        Доступные отчеты:
+            average-gdp  - средний ВВП по странам"""
     )
 
     parser.add_argument(

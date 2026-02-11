@@ -1,12 +1,15 @@
 import csv
 from tabulate import tabulate
+from typing import Optional, List, Any
 import sys
 
 
-def read_csv_file(filepath):
+def read_csv_file(filepath: str) -> Optional[List[List[str]]]:
     """Читает csv-файл по указанному адресу
     Args:
-        filepath: адрес файла"""
+        filepath: адрес файла
+    Returns:
+        Прочитаный файл в виде List[List[str]]"""
     data = []
     try:
         with open(filepath, 'r', encoding='utf-8') as file:
@@ -44,7 +47,7 @@ def validate_file_structure(files_data):
     return True
 
 
-def try_convert_to_number(value):
+def try_convert_to_number(value: str) -> Any:
     """Пытается преобразовать значение в число (int или float)
     Args:
         value: значение
@@ -59,7 +62,7 @@ def try_convert_to_number(value):
             return value
 
 
-def data_combine(all_data):
+def data_combine(all_data: List[List[Any]]):
     """Получает сырые данные, убирает в них заголовки
     Args:
         all_data: сырые данные
@@ -74,7 +77,7 @@ def data_combine(all_data):
     return headers, combined_rows
 
 
-def to_tabulate(data, headers):
+def to_tabulate(data: List[List[str]], headers: dict[str,str]):
     """Выводит в консоль в красивом формате данные
     Важно - заголовки и данные отдельными аргументами
     Args:
